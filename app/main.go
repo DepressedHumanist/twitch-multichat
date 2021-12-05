@@ -87,16 +87,16 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", serveHome)
+	http.HandleFunc("/chat", serveHome)
 	http.HandleFunc("/ws", handler)
-	http.Handle("/templates", http.FileServer(http.Dir("templates")))
+	http.Handle("/", http.FileServer(http.Dir("./templates")))
 	go http.ListenAndServe(":8081", nil)
 	debug := false
 	w := webview.New(debug)
 	defer w.Destroy()
-	w.SetTitle("Multichat")
-	w.SetSize(800, 400, webview.HintNone)
-	w.Navigate("http://localhost:8081")
+	w.SetTitle("Multi")
+	w.SetSize(400, 600, webview.HintNone)
+	w.Navigate("http://localhost:8081/chat")
 	winflags := win.GetWindowLong(win.HWND(w.Window()), -20)
 	winflags &= ^(win.WS_CAPTION | win.WS_THICKFRAME | win.WS_MINIMIZEBOX | win.WS_MAXIMIZEBOX | win.WS_SYSMENU)
 	win.SetWindowLong(win.HWND(w.Window()), -20, winflags)
