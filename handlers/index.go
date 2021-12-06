@@ -1,10 +1,15 @@
 package handlers
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello")
+	log.Println(r.URL)
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	http.ServeFile(w, r, "templates/index.html")
 }

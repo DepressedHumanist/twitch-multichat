@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"encoding/json"
@@ -45,7 +45,7 @@ type TwitchClient struct {
 	Token string `json:"access_token"`
 }
 
-func (t TwitchClient) grabUserInfo(client *http.Client, name string) *TwitchUser {
+func (t TwitchClient) GrabUserInfo(client *http.Client, name string) *TwitchUser {
 	req, err := http.NewRequest("GET", "https://api.twitch.tv/helix/users?login="+name, nil)
 	if err != nil {
 		log.Println(err.Error())
