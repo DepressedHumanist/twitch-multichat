@@ -235,19 +235,31 @@
                         var template = document.createElement("template")
                         template.innerHTML = '<input class="form-control" name="streamer" placeholder="Streamer name">'
                         document.getElementById("streamers").appendChild(template.content.firstChild)
+                        document.getElementById("streamers").appendChild( document.createElement(""))
+                    }
+                    function deleteLast() {
+                        console.log("clicked")
+                        var st = document.getElementById("streamers");
+                        if (st.childNodes.length > 3) {
+                            console.log(st.childNodes[st.childNodes.length - 1])
+                            st.removeChild(st.childNodes[st.childNodes.length - 1])
+                        }
                     }
                 </script>
                 <div role="tabpanel" class="tab-pane fade in active" id="Section1">
-                    <form class="form-horizontal">
+                    <form method="post" action="/home" class="form-horizontal">
                         <div id="streamers" class="form-group">
-                            <input class="form-control" name="streamer" placeholder="Streamer name">
+                            {{ range .Streamers }}
+                            <input class="form-control" name="streamer" placeholder="Streamer name" value="{{ . }}">
+                            {{ end }}
                         </div>
                         <div class="form-group">
                             <button style="" type="button" class="btn btn-default" onclick="insertNameBox()">+</button>
+                            <button style="" type="button" class="btn btn-default" onclick="deleteLast()">-</button>
                         </div>
                         <div class="form-group">
                             <div class="main-checkbox">
-                                <input value="None" id="checkbox1" name="check" type="checkbox">
+                                <input id="checkbox1" name="skipInit" type="checkbox" {{ if .SkipInit }}checked="checked"{{end}}>
                                 <label for="checkbox1"></label>
                             </div>
                             <span class="text">Don't show this screen on startup</span>

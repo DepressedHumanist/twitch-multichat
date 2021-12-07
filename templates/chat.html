@@ -73,8 +73,30 @@
         }
     </script>
     <link rel="stylesheet" href="chat.css">
+    <style>
+        div.right {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            min-height: 20px;
+            z-index: 999;
+        }
+        button {
+            border-radius: 50%;
+            border: none;
+            color: white;
+            float: right;
+            display: none;
+        }
+
+        div:hover > a > button {
+            color: white;
+            display: inline;
+        }
+    </style>
 </head>
 <body>
+<div class="right"><a href="/home?force=true"><button><img src="https://img.icons8.com/ios/50/000000/settings--v1.png" alt="settings"/></button></a></div>
 <div id="log" class="sl__chat__layout">
     <!-- chat item -->
     <!--script type="text/template" id="chatlist_item">
