@@ -251,6 +251,8 @@
                         <div id="streamers" class="form-group">
                             {{ range .Streamers }}
                             <input class="form-control" name="streamer" placeholder="Streamer name" value="{{ . }}">
+                            {{ else }}
+                            <input class="form-control" name="streamer" placeholder="Streamer name" value="">
                             {{ end }}
                         </div>
                         <div class="form-group">

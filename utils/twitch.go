@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -45,35 +46,40 @@ type TwitchClient struct {
 	Token string `json:"access_token"`
 }
 
-func (t TwitchClient) GrabUserInfo(client *http.Client, name string) *TwitchUser {
+func (t TwitchClient) GrabUserInfo(client *http.Client, name string) (*TwitchUser, error) {
 	req, err := http.NewRequest("GET", "https://api.twitch.tv/helix/users?login="+name, nil)
 	if err != nil {
 		log.Println(err.Error())
-		return nil
+		return nil, err
 	}
 	req.Header.Add("Client-Id", t.ID)
 	req.Header.Add("Authorization", "Bearer "+t.Token)
 	res, err := client.Do(req)
 	if err != nil {
 		log.Println("Error: couldn't get a user from twitch: ", err.Error())
-		return nil
+		return nil, err
+	} else if res.StatusCode != 200 {
+		log.Println("Token broke :(")
+		return nil, errors.New("Token broke")
 	}
 	data := make([]byte, 1024)
 	n, err := res.Body.Read(data)
 	if err != nil && err != io.EOF {
-		log.Fatal(err.Error())
+		log.Println(err.Error())
+		return nil, err
 	}
 	userData := &TwitchUsers{}
 	err = json.Unmarshal(data[:n], userData)
+	log.Println(string(data[:n]))
 	if err != nil {
 		log.Println("Error: got broken json from twitch: ", err.Error())
-		return nil
+		return nil, err
 	}
 	if len(userData.Data) < 1 {
 		log.Println("Error: user not found")
-		return nil
+		return nil, nil
 	}
-	return &userData.Data[0]
+	return &userData.Data[0], nil
 }
 
 func GetBetterTTVEmotes(channel ...string) map[string]string {
@@ -145,6 +151,7 @@ func NewTwitchClient(cliId, secret string) *TwitchClient {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+	log.Println(string(data[:n]))
 	err = json.Unmarshal(data[:n], cli)
 	if err != nil {
 		log.Fatal(err.Error())

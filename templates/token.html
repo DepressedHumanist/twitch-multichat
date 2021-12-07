@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function() {
+            var data = window.location.hash.substr(1);
+            if (data) {
+                xhr = new XMLHttpRequest();
+                xhr.open("POST", "/token")
+                xhr.send(data)
+                document.getElementById("data").innerText = "Done! You can return to the app"
+            } else {
+                document.getElementById("data").innerHTML = `Please open this link in browser:<br><br>
+			<a href=\"https://id.twitch.tv/oauth2/authorize?client_id=yig9b3sexzjwm2wq2y9ap6c6lp5o80&redirect_uri=http://localhost:8081/token&response_type=token+id_token&scope=openid\">
+			https://id.twitch.tv/oauth2/authorize?client_id=yig9b3sexzjwm2wq2y9ap6c6lp5o80&redirect_uri=http://localhost:8081/token&response_type=token+id_token&scope=openid
+			</a>`
+                setInterval(function () {
+                    xhr = new XMLHttpRequest();
+                    xhr.open("GET", "/token_check")
+                    xhr.onreadystatechange = () => {
+                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                            document.location = "/home?force=true";
+                        }
+                    }
+                    xhr.send()
+                }, 1000)
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="data">
+
+</div>
+
+</body>
+</html>

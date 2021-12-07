@@ -63,11 +63,21 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		_, ok := r.Form["skipInit"]
 		config.SkipInit = ok
 
-		twi := utils.NewTwitchClient(config.TwitchID, config.TwitchSecret)
+		twi := utils.TwitchClient{ID: config.TwitchID, Token: config.TwitchSecret}
 		chanIds := make([]string, len(config.Streamers))
 		config.AvatarMap = make(map[string]string)
 		for i, v := range config.Streamers {
-			user := twi.GrabUserInfo(http.DefaultClient, v)
+			user, err := twi.GrabUserInfo(http.DefaultClient, v)
+			if err != nil {
+				data, _ := json.Marshal(config)
+				err = os.WriteFile("config.json", data, os.ModePerm)
+				if err != nil {
+					http.Error(w, "can't write config", 500)
+					return
+				}
+				http.Redirect(w, r, "/token", 302)
+				return
+			}
 			//todo handle channel not found
 			config.AvatarMap[strings.ToLower(user.Name)] = user.ProfilePic
 			chanIds[i] = user.ID
