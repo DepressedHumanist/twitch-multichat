@@ -7,9 +7,12 @@ I made it mostly for myself, but it may be useful for small streamers doing coll
 they can easily read (and respond to) the chats of other streamers in the same collab. 
 
 ### How to use it?
-You launch the `.exe` file, you will be greeted with a small configuration window where 
-you can input nicknames of the streamers that you want to read. This window will always 
-appear on startup unless you check the "Do not show this window on startup" checkbox.  
+First, download it from [here](https://github.com/DepressedHumanist/twitch-multichat/releases).  
+
+Then unzip it to some foldeer and launch the `.exe` file, you will be greeted with a small 
+configuration window where you can input nicknames of the streamers that you want to read. 
+This window will always appear on startup unless you check the "Do not show this window
+on startup" checkbox.  
 
 When you submit the list of streamers, the chat window will appear. If you wish to return 
 to the configuration screen, hover your mouse around the top of the window and the settings 
