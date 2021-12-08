@@ -9,6 +9,8 @@ import (
 	"net/http"
 )
 
+const TOKEN_REFRESH_URL = "https://id.twitch.tv/oauth2/authorize?client_id=yig9b3sexzjwm2wq2y9ap6c6lp5o80&redirect_uri=http://localhost:8081/token&response_type=token+id_token&scope=openid"
+
 // JSON handling
 
 type TwitchUsers struct {
