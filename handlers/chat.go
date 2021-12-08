@@ -60,7 +60,7 @@ func WsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ServeHome(w http.ResponseWriter, r *http.Request) {
+func Chat(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.URL)
 	if r.Method != "GET" {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)

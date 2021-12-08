@@ -10,15 +10,18 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/chat", handlers.ServeHome)
-	http.HandleFunc("/home", handlers.Index)
-	http.HandleFunc("/token", handlers.Token)
-	http.HandleFunc("/token_check", handlers.Ping)
-	http.HandleFunc("/ws", handlers.WsHandler)
-	http.Handle("/", http.FileServer(http.Dir("./templates")))
-	go http.ListenAndServe(":8081", nil)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/chat", handlers.Chat)
+	mux.HandleFunc("/token", handlers.Token)
+	mux.HandleFunc("/token_check", handlers.Ping)
+	mux.HandleFunc("/ws", handlers.WsHandler)
+	mux.HandleFunc("/", handlers.Index)
+	mux.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("static"))))
+	go http.ListenAndServe(":8081", mux)
 	var a, _ = astilectron.New(nil, astilectron.Options{
 		AppName:            "multichat",
+		AppIconDefaultPath: "static/icon.png",
+		AppIconDarwinPath:  "static/icon.icns",
 		BaseDirectoryPath:  "deps",
 		VersionAstilectron: "0.33.0",
 		VersionElectron:    "6.1.2",
@@ -30,7 +33,7 @@ func main() {
 	useContentSize := true
 	url := "http://localhost:8081/home"
 	if _, err := os.Stat("config.json"); err != nil {
-		url = "http://localhost:8081/home"
+		url = "http://localhost:8081/token"
 		utils.OpenBrowser(utils.TOKEN_REFRESH_URL)
 	}
 

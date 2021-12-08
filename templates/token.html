@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="/static/favicon.ico" />
     <script>
         window.onload = function() {
             var data = window.location.hash.substr(1);
@@ -10,9 +11,9 @@
                 xhr = new XMLHttpRequest();
                 xhr.open("POST", "/token")
                 xhr.send(data)
-                document.getElementById("data").innerHTML = `Done! Wait for a redirect, go to the app or <a href="/home">click here</a>`
+                document.getElementById("data").innerHTML = `Done! Wait for a redirect, go to the app or <a href="/">click here</a>`
                 setTimeout(function () {
-                    document.location = "/home"
+                    document.location = "/"
                 }, 5000)
             } else {
                 document.getElementById("data").innerHTML = `Please authenticate in your browser...`
@@ -21,7 +22,7 @@
                     xhr.open("GET", "/token_check")
                     xhr.onreadystatechange = () => {
                         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                            document.location = "/home?force=true";
+                            document.location = "/?force=true";
                         }
                     }
                     xhr.send()

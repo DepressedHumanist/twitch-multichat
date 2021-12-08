@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Chat Example</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="/static/favicon.ico" />
     <script>
         window.onload = function () {
             var conn;
@@ -72,7 +73,7 @@
             wsConnect();
         }
     </script>
-    <link rel="stylesheet" href="chat.css">
+    <link rel="stylesheet" href="/static/chat.css">
     <style>
         div.right {
             position: -webkit-sticky;
@@ -96,7 +97,7 @@
     </style>
 </head>
 <body>
-<div class="right"><a href="/home?force=true"><button><img src="https://img.icons8.com/ios/50/000000/settings--v1.png" alt="settings"/></button></a></div>
+<div class="right"><a href="/?force=true"><button><img src="https://img.icons8.com/ios/50/000000/settings--v1.png" alt="settings"/></button></a></div>
 <div id="log" class="sl__chat__layout">
     <!-- chat item -->
     <!--script type="text/template" id="chatlist_item">

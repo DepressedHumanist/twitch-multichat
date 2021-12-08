@@ -4,12 +4,16 @@ go 1.17
 
 require (
 	github.com/ImVexed/muon v0.0.0-20191209030120-589db8f0f250 // indirect
+	github.com/akavel/rsrc v0.10.2 // indirect
 	github.com/asticode/go-astikit v0.22.0 // indirect
 	github.com/asticode/go-astilectron v0.25.0 // indirect
+	github.com/asticode/go-astilectron-bundler v0.7.12 // indirect
+	github.com/asticode/go-bindata v1.0.0 // indirect
 	github.com/gempir/go-twitch-irc v1.1.0 // indirect
 	github.com/gempir/go-twitch-irc/v2 v2.8.1 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/lxn/win v0.0.0-20210218163916-a377121e959e // indirect
+	github.com/sam-kamerer/go-plister v1.2.0 // indirect
 	github.com/sciter-sdk/go-sciter v0.5.0 // indirect
 	github.com/ssuhvs/golang-webview v0.0.0-20190123072648-16c93bcaeaeb // indirect
 	github.com/webview/webview v0.0.0-20210330151455-f540d88dde4e // indirect
