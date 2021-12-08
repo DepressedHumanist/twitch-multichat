@@ -25,6 +25,11 @@ Yes. What you see in the app window is basically a webpage, you can access the c
 by going into your browser and navigating to `localhost:8081/chat`. You can use this 
 URL in browser capture of your favorite streaming software to get transparent background.
 
+###Can I change the style of the chat?
+Yes, kinda. You can change the file `assets/chat.css` to get the desired look of your chat,
+but I'm not sure how compatible it is with existing stylesheets. Message me or open an 
+issue if you really want to do it but have some troubles!
+
 ### Features
 This app supports the display of not only twitch emotes, but BetterTTV and FrankerFaceZ 
 emotes. It will display shared and channel emotes from BTTV/FFZ for every channel in the 
@@ -37,4 +42,5 @@ More features to come:
 - badges
 - filtering bots
 - highlighting subscriptions, bits, etc
+- easier customization
 - and more! You can even request something if you want to see it
