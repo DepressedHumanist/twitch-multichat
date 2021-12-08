@@ -13,12 +13,9 @@
                 document.getElementById("data").innerHTML = `Done! Wait for a redirect, go to the app or <a href="/home">click here</a>`
                 setTimeout(function () {
                     document.location = "/home"
-                }, 1000)
+                }, 5000)
             } else {
-                document.getElementById("data").innerHTML = `Please open this link in browser:<br><br>
-			<a href=\"https://id.twitch.tv/oauth2/authorize?client_id=yig9b3sexzjwm2wq2y9ap6c6lp5o80&redirect_uri=http://localhost:8081/token&response_type=token+id_token&scope=openid\">
-			https://id.twitch.tv/oauth2/authorize?client_id=yig9b3sexzjwm2wq2y9ap6c6lp5o80&redirect_uri=http://localhost:8081/token&response_type=token+id_token&scope=openid
-			</a>`
+                document.getElementById("data").innerHTML = `Please authenticate in your browser...`
                 setInterval(function () {
                     xhr = new XMLHttpRequest();
                     xhr.open("GET", "/token_check")

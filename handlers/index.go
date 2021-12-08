@@ -75,11 +75,8 @@ func Index(w http.ResponseWriter, r *http.Request) {
 					http.Error(w, "can't write config", 500)
 					return
 				}
-				if utils.CheckForEdge() {
-					http.Redirect(w, r, "/token", 302)
-				} else {
-					http.Redirect(w, r, utils.TOKEN_REFRESH_URL, 302)
-				}
+				utils.OpenBrowser(utils.TOKEN_REFRESH_URL)
+				http.Redirect(w, r, "/token", 302)
 				return
 			}
 			//todo handle channel not found

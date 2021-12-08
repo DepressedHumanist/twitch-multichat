@@ -1,12 +1,10 @@
 package main
 
 import (
-	"github.com/lxn/win"
-	"github.com/webview/webview"
-	"log"
+	"github.com/asticode/go-astikit"
+	"github.com/asticode/go-astilectron"
 	"net/http"
 	"os"
-	"runtime"
 	"twitch-multichat/handlers"
 	"twitch-multichat/utils"
 )
@@ -18,30 +16,32 @@ func main() {
 	http.HandleFunc("/token_check", handlers.Ping)
 	http.HandleFunc("/ws", handlers.WsHandler)
 	http.Handle("/", http.FileServer(http.Dir("./templates")))
-	if utils.CheckForEdge() {
-		go http.ListenAndServe(":8081", nil)
-		w := webview.New(false)
-		defer w.Destroy()
-		w.SetTitle("Multichat")
-		w.SetSize(400, 600, webview.HintNone)
-		if _, err := os.Stat("config.json"); err == nil {
-			w.Navigate("http://localhost:8081/home")
-		} else {
-			w.Navigate("http://localhost:8081/token")
-		}
+	go http.ListenAndServe(":8081", nil)
+	var a, _ = astilectron.New(nil, astilectron.Options{
+		AppName:            "multichat",
+		BaseDirectoryPath:  "deps",
+		VersionAstilectron: "0.33.0",
+		VersionElectron:    "6.1.2",
+	})
+	defer a.Close()
 
-		if runtime.GOOS == "windows" {
-			winflags := win.GetWindowLong(win.HWND(w.Window()), -20)
-			winflags &= ^(win.WS_CAPTION | win.WS_THICKFRAME | win.WS_MINIMIZEBOX | win.WS_MAXIMIZEBOX | win.WS_SYSMENU)
-			win.SetWindowLong(win.HWND(w.Window()), -20, winflags)
-		}
-		w.Run()
-	} else {
-		if _, err := os.Stat("config.json"); err == nil {
-			utils.OpenBrowser("http://localhost:8081/home")
-		} else {
-			utils.OpenBrowser(utils.TOKEN_REFRESH_URL)
-		}
-		log.Fatal(http.ListenAndServe(":8081", nil))
+	// Start astilectron
+	a.Start()
+	useContentSize := true
+	url := "http://localhost:8081/home"
+	if _, err := os.Stat("config.json"); err != nil {
+		url = "http://localhost:8081/home"
+		utils.OpenBrowser(utils.TOKEN_REFRESH_URL)
 	}
+
+	var w, _ = a.NewWindow(url, &astilectron.WindowOptions{
+		UseContentSize: &useContentSize,
+		Height:         astikit.IntPtr(600),
+		Width:          astikit.IntPtr(400),
+	})
+	w.Create()
+
+	// Blocking pattern
+	a.Wait()
+
 }

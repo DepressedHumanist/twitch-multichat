@@ -235,13 +235,15 @@
                         var template = document.createElement("template")
                         template.innerHTML = '<input class="form-control" name="streamer" placeholder="Streamer name">'
                         document.getElementById("streamers").appendChild(template.content.firstChild)
-                        document.getElementById("streamers").appendChild( document.createElement(""))
                     }
                     function deleteLast() {
-                        console.log("clicked")
                         var st = document.getElementById("streamers");
                         if (st.childNodes.length > 3) {
                             console.log(st.childNodes[st.childNodes.length - 1])
+                            while (st.childNodes[st.childNodes.length - 1].innerHTML === undefined) {
+                                st.removeChild(st.childNodes[st.childNodes.length - 1])
+                                console.log(st.childNodes[st.childNodes.length - 1])
+                            }
                             st.removeChild(st.childNodes[st.childNodes.length - 1])
                         }
                     }
@@ -250,10 +252,8 @@
                     <form method="post" action="/home" class="form-horizontal">
                         <div id="streamers" class="form-group">
                             {{ range .Streamers }}
-                            <input class="form-control" name="streamer" placeholder="Streamer name" value="{{ . }}">
-                            {{ else }}
-                            <input class="form-control" name="streamer" placeholder="Streamer name" value="">
-                            {{ end }}
+                            <input class="form-control" name="streamer" placeholder="Streamer name" value="{{ . }}">{{ else }}
+                            <input class="form-control" name="streamer" placeholder="Streamer name" value="">{{ end }}
                         </div>
                         <div class="form-group">
                             <button style="" type="button" class="btn btn-default" onclick="insertNameBox()">+</button>
