@@ -9,7 +9,9 @@ they can easily read (and respond to) the chats of other streamers in the same c
 ### How to use it?
 First, download it from [here](https://github.com/DepressedHumanist/twitch-multichat/releases).  
 
-Then unzip it to some foldeer and launch the `.exe` file, you will be greeted with a small 
+Then unzip it to some foldeer and launch the `.exe` file. You will need to authenticate
+via twitch, but I won't collect any of your data, it is only required to be able to get 
+streamer avatars and emotes. After authentication you will be greeted with a small 
 configuration window where you can input nicknames of the streamers that you want to read. 
 This window will always appear on startup unless you check the "Do not show this window
 on startup" checkbox.  
