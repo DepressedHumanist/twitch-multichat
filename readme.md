@@ -27,3 +27,9 @@ collab, even if one or several of the other streamers don't have this emote enab
 
 To quickly see which chat the message came from, streamer's avatar is shown before every 
 message to indicate that.
+
+More features to come:
+- badges
+- filtering bots
+- highlighting subscriptions, bits, etc
+- and more! You can even request something if you want to see it
